@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -39,12 +40,15 @@
         }
     </style>
 </head>
+
 <body>
+    <!-- Include the layout -->
+    @extends('layout')
     <!-- Masthead-->
     <div class="masthead">
         <div class="masthead-content text-white">
             <div class="container-fluid px-4 px-lg-0">
-                <h1 class="fst-italic lh-1 mb-4">Time to start the journey!</h1>
+                <h1 class="fst-italic lh-1 mb-4">Welcome back on your journey with FlavorQuest, {{ $username }}!</h1>
                 <p class="mb-5">
                     <span style="text-align: right;">Search through Restaurants and Meals based on locations, ratings, reviews, menus etc. to help you find the best savory options out there. Also, don't forget to share your own experiences!</span>
                 </p>
@@ -56,4 +60,5 @@
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 </body>
+
 </html>

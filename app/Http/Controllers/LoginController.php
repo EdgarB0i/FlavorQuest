@@ -18,15 +18,19 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            return redirect()->intended('/');
+            $username = Auth::user()->name; // Get the username of the logged-in user
+            return redirect()->route('home', ['username' => $username]);
         } else {
             // Authentication failed
             return back()->withErrors(['message' => 'Invalid login credentials.']);
         }
     }
+    
+    
+    
 
     public function logout(Request $request)
     {

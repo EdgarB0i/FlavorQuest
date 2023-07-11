@@ -3,6 +3,8 @@
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,7 +18,17 @@ Route::post('/signup', [SignupController::class, 'register'])->name('signup.regi
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-// Routing for homepage
-Route::get('/home',function() {
-    return view('home');
+//homepage
+Route::get('/home', function(Request $request) {
+    return view('home', ['username' => $request->input('username')]);
+})->name('home');
+
+
+// Routing for logout
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+//this is a test page
+Route::get('/test', function () {
+    return view('test');
 });

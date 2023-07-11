@@ -47,7 +47,7 @@
             <div class="card card-2">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Lets Start Your Quests!</h2>
+                    <h2 class="title">Start Your Quests!</h2>
                     <form method="POST" action="{{ route('login.submit') }}">
                         @csrf
                         <div class="input-group">
