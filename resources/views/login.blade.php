@@ -64,10 +64,15 @@
                             @enderror
                         </div>
 
+                        @if(session('error'))
+                            <div class="text-danger">{{ session('error') }}</div>
+                        @endif
+
                         <div class="p-t-30">
                             <button class="btn btn--radius btn--green" type="submit">Sign In</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

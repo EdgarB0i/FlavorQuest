@@ -15,6 +15,7 @@ class CreateSignupTable extends Migration
     {
         Schema::create('signup', function (Blueprint $table) {
             $table->id();
+            $table->boolean('admin')->default(false);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
