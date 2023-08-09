@@ -132,6 +132,31 @@
             dishFields.appendChild(dishGroup);
         }
     </script>
+                                <!-- Success Toast Message -->
+                                @if (session('add_success'))
+                                <div class="toast align-items-center text-white bg-success border-0 position-fixed bottom-0 start-50 translate-middle" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                                    <div class="d-flex">
+                                        <div class="toast-body">
+                                        Restaurant details added successfully!
+                                        </div>
+                                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    // Get the toast element
+                                    const toastEl = document.querySelector('.toast');
+
+                                    // Show the toast if it exists
+                                    if (toastEl) {
+                                        const bsToast = new bootstrap.Toast(toastEl);
+                                        bsToast.show();
+                                    }
+                                });
+                            </script>
+
 </body>
 
 </html>

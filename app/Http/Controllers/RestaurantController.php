@@ -66,8 +66,8 @@ class RestaurantController extends Controller
                 $newMenu->save();
             }
         }
-    
-        return redirect()->route('restaurant.add')->with('success', 'Restaurant and menu added/updated successfully!');
+        session()->flash('add_success', true);
+        return redirect()->route('restaurant.add')->with('success' );
     }
     
     

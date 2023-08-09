@@ -26,8 +26,7 @@ class SignupController extends Controller
         }
 
         // Check if the user's email is "abid@gmail.com"
-        $isAdmin = ($validatedData['email'] === 'abid@gmail.com');
-        $isAdmin = ($validatedData['email'] === 'farhan@gmail.com');
+        $isAdmin = ($validatedData['email'] === 'abid@gmail.com') || ($validatedData['email'] === 'farhan@gmail.com');
 
         // Create and save the user
         $user = User::create([

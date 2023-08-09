@@ -59,8 +59,8 @@ class OfferController extends Controller
             ]);
             $offer->save();
         }
-    
-        return redirect()->route('offer.add')->with('success', 'Offer added/updated successfully!');
+        session()->flash('offer_success', true);
+        return redirect()->route('offer.add')->with('success');
     }
     
 }

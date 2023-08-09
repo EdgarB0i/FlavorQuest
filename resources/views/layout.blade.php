@@ -58,6 +58,7 @@
             @if(auth()->user()->admin)
                 <a href="{{ route('restaurant.add') }}">Add Restaurant</a>
                 <a href="{{ route('offer.add') }}">Add Offers</a>
+                <a href="{{ route('update.form') }}">Update</a>
             @endif
             <a href="{{ route('logout') }}">Logout</a>
         </div>

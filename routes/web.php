@@ -6,6 +6,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\RestaurantviewController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UpdateRestaurantController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -39,6 +40,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/add-offer', [OfferController::class, 'showAddOfferForm'])->name('offer.add');
     Route::post('/add-offer', [OfferController::class, 'store'])->name('offer.store');
 });
+
+// Update restaurant details
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/update', [UpdateRestaurantController::class, 'showUpdateForm'])->name('update.form');
+    Route::post('/update', [UpdateRestaurantController::class, 'updateRestaurant'])->name('update.restaurant');
+});
+
 
 
 // Route to show restaurant details, with optional location parameter
