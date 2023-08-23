@@ -13,38 +13,40 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <style>
-        /* Custom styles */
-        body {
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            margin: 0;
-            padding-top: 50px; /* Add padding for the fixed navbar */
-        }
-        .navbar {
-            background-color: white;
-            height: 50px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-        }
-        .navbar-links {
-            display: flex;
-            align-items: center;
-        }
-        .navbar-links a {
-            color: black;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-        .navbar-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    /* Custom styles */
+    body {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin: 0;
+        padding-top: 50px; /* Add padding for the fixed navbar */
+    }
+    .navbar {
+        background-color: white;
+        border-bottom: 2px solid black; /* Adjust the thickness as needed */
+        height: 50px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        display: flex;
+        justify-content: center;
+    }
+    .navbar-links {
+        display: flex;
+        align-items: center;
+    }
+    .navbar-links a {
+        color: black;
+        text-decoration: none;
+        margin-left: 20px;
+    }
+    .navbar-links a:hover {
+        text-decoration: underline;
+    }
+</style>
+
 </head>
 
 <body>
