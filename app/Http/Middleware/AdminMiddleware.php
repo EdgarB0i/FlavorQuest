@@ -24,7 +24,7 @@ class AdminMiddleware
 
         // If the user is not an admin, log the user out and set the error message in the session
         Auth::logout();
-        $errorMessage = 'You are not authorized to access this page. You have been logged out.';
+        $errorMessage = 'You are not authorized to access this page.';
         return redirect()->route('login.form')->with('error', $errorMessage);
     }
 }

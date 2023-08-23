@@ -26,26 +26,13 @@ Route::post('/signup', [SignupController::class, 'register'])->name('signup.regi
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-// Homepage
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
-
-
 // Routing for logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Add Restaurant route
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/add-restaurant', [RestaurantController::class, 'showAddRestaurantForm'])->name('restaurant.add');
-    Route::post('/add-restaurant', [RestaurantController::class, 'store'])->name('restaurant.store');
-// Add Offer route
-    Route::get('/add-offer', [OfferController::class, 'showAddOfferForm'])->name('offer.add');
-    Route::post('/add-offer', [OfferController::class, 'store'])->name('offer.store');
-// Update restaurant details
-    Route::get('/update', [UpdateRestaurantController::class, 'showUpdateForm'])->name('update.form');
-    Route::post('/update', [UpdateRestaurantController::class, 'updateRestaurant'])->name('update.restaurant');
-});
+
+
+// Homepage
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
@@ -53,20 +40,14 @@ Route::group(['middleware' => 'admin'], function () {
 Route::get('/restaurants/details/{name}/{location?}', [RestaurantviewController::class, 'showRestaurantDetails'])->name('restaurant.details');
 
 
-
-
-
 //Route to rate restaurants
 Route::get('/rate-restaurants', [RateRestaurantsController::class, 'show'])->name('rate.restaurants');
 Route::post('/rate-restaurant', [RateRestaurantsController::class, 'rate'])->name('rate.restaurant');
-
 
 //Route to rate dishes
 Route::get('/rate-dishes', [RateDishesController::class, 'show'])->name('rate.dishes');
 Route::get('/get-menu-items/{restaurant}', [RateDishesController::class, 'getMenuItems']);
 Route::post('/rate-dishes', [RateDishesController::class, 'rateDishes'])->name('rate.dishes.submit');
-
-
 
 //View the ratings
 Route::get('/ratings', [RatingsController::class, 'showForm'])->name('ratings.show');
@@ -85,7 +66,17 @@ Route::get('/search', [SearchController::class,'search'])->name('web.search');
 Route::get('/restaurants/details', [RestaurantController::class, 'showDetails'])->name('restaurant.det');
 
 
-
+// Add Restaurant route
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/add-restaurant', [RestaurantController::class, 'showAddRestaurantForm'])->name('restaurant.add');
+    Route::post('/add-restaurant', [RestaurantController::class, 'store'])->name('restaurant.store');
+// Add Offer route
+    Route::get('/add-offer', [OfferController::class, 'showAddOfferForm'])->name('offer.add');
+    Route::post('/add-offer', [OfferController::class, 'store'])->name('offer.store');
+// Update restaurant details
+    Route::get('/update', [UpdateRestaurantController::class, 'showUpdateForm'])->name('update.form');
+    Route::post('/update', [UpdateRestaurantController::class, 'updateRestaurant'])->name('update.restaurant');
+});
 
 
 // This is a test page
