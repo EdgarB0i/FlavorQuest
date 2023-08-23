@@ -51,10 +51,10 @@
     <!-- Navigation Bar/Header -->
     <nav class="navbar">
         <div class="navbar-links">
-        <a href="{{ route('home', ['username' => $username]) }}">Home</a>
-            <a href="#">Search</a>
-            <a href="#">Ratings</a>
-            <a href="#">Reviews</a>
+            <a href="{{ route('home') }}">Home</a>
+            <a href="{{ route('web.search') }}">Search</a>
+            <a href="{{ route('ratings.show') }}">Ratings</a>
+            <a href="{{ route('reviews.index') }}">Reviews</a>
             @if(auth()->user()->admin)
                 <a href="{{ route('restaurant.add') }}">Add Restaurant</a>
                 <a href="{{ route('offer.add') }}">Add Offers</a>

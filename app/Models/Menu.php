@@ -9,12 +9,12 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $table = 'menu'; // Specify the custom table name
-
+    protected $table = 'menu';
     protected $fillable = [
         'dish_name',
         'price',
-        'rating',
+        'average_rating', 
+        'ratings_count',
         'restaurant_id',
     ];
 

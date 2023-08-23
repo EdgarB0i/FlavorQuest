@@ -13,7 +13,8 @@ class CreateMenuTable extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->string('dish_name');
             $table->float('price');
-            $table->integer('rating');
+            $table->float('average_rating')->default(0); // Add average_rating column
+            $table->integer('ratings_count')->default(0); // Add ratings_count column
             
             $table->timestamps();
 
@@ -27,3 +28,4 @@ class CreateMenuTable extends Migration
         Schema::dropIfExists('menu');
     }
 }
+

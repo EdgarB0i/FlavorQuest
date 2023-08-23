@@ -44,17 +44,24 @@
 <body>
     <!-- Include the layout -->
     @extends('layout')
-    <!-- Masthead-->
+    <!-- Masthead -->
     <div class="masthead">
         <div class="masthead-content text-white">
             <div class="container-fluid px-4 px-lg-0">
-                <h1 class="fst-italic lh-1 mb-4">Welcome back on your journey with FlavorQuest, {{ $username }}!</h1>
+ 
+                <h1 class="fst-italic lh-1 mb-4">Welcome back on your journey with FlavorQuest,
+                {{ Auth::user()->name }}!
+                </h1>
                 <p class="mb-5">
                     <span style="text-align: right;">Search through Restaurants and Meals based on locations, ratings, reviews, menus etc. to find the best savory options out there. Also, don't forget to share your own experiences!</span>
                 </p>
             </div>
         </div>
     </div>
+
+
+
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

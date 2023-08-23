@@ -18,16 +18,16 @@ class SignupController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
         ]);
-
+    
         // Check if email already exists in the database
         $existingUser = User::where('email', $validatedData['email'])->first();
         if ($existingUser) {
             return back()->withErrors(['email' => 'This email is already registered.']);
         }
-
+    
         // Check if the user's email is "abid@gmail.com"
         $isAdmin = ($validatedData['email'] === 'abid@gmail.com') || ($validatedData['email'] === 'farhan@gmail.com');
-
+    
         // Create and save the user
         $user = User::create([
             'name' => $validatedData['username'],
@@ -35,8 +35,8 @@ class SignupController extends Controller
             'password' => Hash::make($validatedData['password']),
             'admin' => $isAdmin, // Set the admin status based on the email
         ]);
-
-        // Redirect back to the welcome page
-        return redirect('/');
+    
+        // Flash a success message to the session
+        return redirect('/login')->with('success', 'Registration successful! You can now log in.');
     }
 }

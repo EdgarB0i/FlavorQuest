@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password',
         'admin',
     ];
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,3 +53,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 }
+

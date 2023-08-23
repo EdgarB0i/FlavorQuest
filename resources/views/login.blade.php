@@ -72,24 +72,23 @@
                             <button class="btn btn--radius btn--green" type="submit">Sign In</button>
                         </div>
                     </form>
+                    <br>
+                    <br>
+                    @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
 
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <!-- Vendor JS-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
 
-    <!-- Main JS-->
-    <script src="js/global.js"></script>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
+</body>
 
 
 </html>

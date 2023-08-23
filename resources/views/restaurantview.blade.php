@@ -99,7 +99,7 @@
                                     <span class="menu-item-name">{{ $menuItem->dish_name }}</span>
                                     <span class="menu-item-price">TK{{ $menuItem->price }}</span>      
                                 </li>
-                                <span class="menu-item-rating">Rating: {{ $menuItem->rating }}</span>
+                                <span class="menu-item-rating">Rating: {{ $menuItem->average_rating }}</span>
                             @endforeach
                         </ul>
 

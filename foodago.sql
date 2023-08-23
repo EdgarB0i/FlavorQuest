@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2023 at 03:58 PM
+-- Generation Time: Aug 16, 2023 at 08:36 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,7 +48,8 @@ CREATE TABLE `menu` (
   `restaurant_id` bigint(20) UNSIGNED NOT NULL,
   `dish_name` varchar(255) NOT NULL,
   `price` double(8,2) NOT NULL,
-  `rating` int(11) NOT NULL,
+  `average_rating` double(8,2) NOT NULL DEFAULT 0.00,
+  `ratings_count` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -57,13 +58,11 @@ CREATE TABLE `menu` (
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `restaurant_id`, `dish_name`, `price`, `rating`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Beef Burger', 200.00, 0, '2023-07-31 15:50:51', '2023-08-07 23:53:59'),
-(4, 3, 'Chicken Burger', 155.00, 5, '2023-07-31 15:57:38', '2023-07-31 15:57:38'),
-(7, 7, 'Chicken Fry', 100.00, 0, '2023-07-31 23:43:45', '2023-07-31 23:43:45'),
-(8, 5, 'Pizza', 500.00, 0, '2023-08-01 02:29:46', '2023-08-01 02:29:46'),
-(9, 3, 'Pizza', 300.00, 0, '2023-08-07 22:35:06', '2023-08-07 22:35:06'),
-(10, 3, 'Chicken Fry', 150.00, 0, '2023-08-07 22:49:13', '2023-08-07 22:49:13');
+INSERT INTO `menu` (`id`, `restaurant_id`, `dish_name`, `price`, `average_rating`, `ratings_count`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Beef Burger', 200.00, 3.67, 2, '2023-08-15 06:54:16', '2023-08-15 06:54:58'),
+(2, 3, 'Chicken Fry', 150.00, 4.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43'),
+(3, 3, 'Chicken Burger', 180.00, 3.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43'),
+(4, 3, 'Pizza', 500.00, 4.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43');
 
 -- --------------------------------------------------------
 
@@ -94,7 +93,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2023_07_31_193511_create_signup_table', 4),
 (11, '2023_07_31_193552_create_signup_table', 5),
 (12, '2023_07_31_194332_create_signup_table', 6),
-(13, '2023_07_31_201612_create_menu_table', 7);
+(13, '2023_07_31_201612_create_menu_table', 7),
+(14, '2023_08_15_062541_create_restaurant_ratings_table', 8),
+(15, '2023_08_15_123017_create_menu_table', 9),
+(16, '2023_08_15_125254_create_menu_table', 10),
+(17, '2023_08_15_131454_create_restaurant_ratings_table', 11),
+(18, '2023_08_15_193906_create_reviews_table', 12),
+(19, '2023_08_15_202944_create_reviews_table', 13);
 
 -- --------------------------------------------------------
 
@@ -116,8 +121,10 @@ CREATE TABLE `offers` (
 --
 
 INSERT INTO `offers` (`id`, `restaurant_id`, `description`, `discount_percentage`, `created_at`, `updated_at`) VALUES
-(7, 3, 'Eid Offer', 25, '2023-08-01 02:40:10', '2023-08-08 07:36:40'),
-(8, 3, 'Weekend Offer', 20, '2023-08-08 07:28:03', '2023-08-08 07:28:03');
+(7, 3, 'Eid Offer', 50, '2023-08-01 02:40:10', '2023-08-09 09:59:36'),
+(8, 3, 'Weekend Offer', 20, '2023-08-08 07:28:03', '2023-08-08 07:28:03'),
+(9, 3, 'meow', 15, '2023-08-08 13:48:10', '2023-08-09 00:49:40'),
+(10, 8, 'Eid Offer', 20, '2023-08-08 23:32:57', '2023-08-08 23:34:45');
 
 -- --------------------------------------------------------
 
@@ -171,7 +178,59 @@ CREATE TABLE `restaurants` (
 INSERT INTO `restaurants` (`id`, `name`, `location`, `created_at`, `updated_at`) VALUES
 (3, 'Chillox', 'Dhanmondi', '2023-07-31 15:50:51', '2023-07-31 15:50:51'),
 (5, 'Chillox', 'Uttara', '2023-07-31 15:58:05', '2023-07-31 15:58:05'),
-(7, 'BFC', 'Green Road', '2023-07-31 23:43:45', '2023-07-31 23:43:45');
+(7, 'BFC', 'Green Road', '2023-07-31 23:43:45', '2023-07-31 23:43:45'),
+(8, 'Takeout', 'Dhanmondi', '2023-08-08 23:26:45', '2023-08-08 23:26:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restaurant_ratings`
+--
+
+CREATE TABLE `restaurant_ratings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `restaurant_id` bigint(20) UNSIGNED NOT NULL,
+  `ambience` double(8,2) NOT NULL DEFAULT 0.00,
+  `service` double(8,2) NOT NULL DEFAULT 0.00,
+  `pricing` double(8,2) NOT NULL DEFAULT 0.00,
+  `ambience_count` int(11) NOT NULL DEFAULT 0,
+  `service_count` int(11) NOT NULL DEFAULT 0,
+  `pricing_count` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `restaurant_ratings`
+--
+
+INSERT INTO `restaurant_ratings` (`id`, `restaurant_id`, `ambience`, `service`, `pricing`, `ambience_count`, `service_count`, `pricing_count`, `created_at`, `updated_at`) VALUES
+(7, 3, 4.00, 3.67, 5.00, 3, 3, 3, '2023-08-15 08:23:59', '2023-08-15 08:24:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `restaurant_id` bigint(20) UNSIGNED NOT NULL,
+  `review_text` text NOT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `restaurant_id`, `review_text`, `photo`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, 'Used to like them but the burgers are too \"saucy\"', 'photos/Q1b7bo43fk92DwnjMKfyDlGITS13HVFE1UgvYoWc.jpg', NULL, '2023-08-16 00:31:35'),
+(2, 5, 3, 'Used to be a great place :D', NULL, NULL, NULL),
+(8, 4, 3, 'gn', NULL, '2023-08-15 16:18:43', '2023-08-15 17:11:55');
 
 -- --------------------------------------------------------
 
@@ -268,6 +327,21 @@ ALTER TABLE `restaurants`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `restaurant_ratings`
+--
+ALTER TABLE `restaurant_ratings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `restaurant_ratings_restaurant_id_foreign` (`restaurant_id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `reviews_user_id_foreign` (`user_id`),
+  ADD KEY `reviews_restaurant_id_foreign` (`restaurant_id`);
+
+--
 -- Indexes for table `signup`
 --
 ALTER TABLE `signup`
@@ -295,19 +369,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -319,7 +393,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `restaurant_ratings`
+--
+ALTER TABLE `restaurant_ratings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `signup`
@@ -348,6 +434,19 @@ ALTER TABLE `menu`
 --
 ALTER TABLE `offers`
   ADD CONSTRAINT `offers_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`);
+
+--
+-- Constraints for table `restaurant_ratings`
+--
+ALTER TABLE `restaurant_ratings`
+  ADD CONSTRAINT `restaurant_ratings_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `signup` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
