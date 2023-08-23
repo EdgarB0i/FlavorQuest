@@ -10,8 +10,6 @@ class OfferController extends Controller
 {
     public function showAddOfferForm()
     {
-        // Here, you can get the authenticated user's username and pass it to the view
-        // Assuming you have a 'username' column in your users table.
         $username = auth()->user()->username;
 
         return view('add-offer', compact('username'));

@@ -85,26 +85,18 @@ class ReviewController extends Controller
     }
     
 
-
-
     // Upvote a review
-
     public function upvote(Review $review)
     {
         $review->timestamps = false; // Disable updating the updated_at timestamp
-        
         $review->upvoted_by = $review->upvoted_by ?? [];
         $review->downvoted_by = $review->downvoted_by ?? [];
         $review->upvoted_by = array_unique(array_merge($review->upvoted_by, [Auth::user()->id]));
         $review->downvoted_by = array_diff($review->downvoted_by, [Auth::user()->id]);
-    
         $review->upvotes = count($review->upvoted_by);
         $review->downvotes = count($review->downvoted_by);
-    
         $review->save();
-        
         $review->timestamps = true; // Enable updating the updated_at timestamp
-    
         return back();
     }
 
@@ -116,14 +108,10 @@ class ReviewController extends Controller
         $review->downvoted_by = $review->downvoted_by ?? [];
         $review->downvoted_by = array_unique(array_merge($review->downvoted_by, [Auth::user()->id]));
         $review->upvoted_by = array_diff($review->upvoted_by, [Auth::user()->id]);
-
         $review->upvotes = count($review->upvoted_by);
         $review->downvotes = count($review->downvoted_by);
-
         $review->save();
-        
         $review->timestamps = true; // Enable updating the updated_at timestamp
-
         return back();
     }
 

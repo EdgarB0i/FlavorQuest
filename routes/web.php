@@ -29,16 +29,11 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 // Routing for logout
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-
 // Homepage
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-
-
 // Route to show restaurant details, with optional location parameter
 Route::get('/restaurants/details/{name}/{location?}', [RestaurantviewController::class, 'showRestaurantDetails'])->name('restaurant.details');
-
 
 //Route to rate restaurants
 Route::get('/rate-restaurants', [RateRestaurantsController::class, 'show'])->name('rate.restaurants');

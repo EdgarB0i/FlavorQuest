@@ -25,7 +25,7 @@ class SignupController extends Controller
             return back()->withErrors(['email' => 'This email is already registered.']);
         }
     
-        // Check if the user's email is "abid@gmail.com"
+        // Check if the user's email is "abid@gmail.com or farhan@gmail.com"
         $isAdmin = ($validatedData['email'] === 'abid@gmail.com') || ($validatedData['email'] === 'farhan@gmail.com');
     
         // Create and save the user

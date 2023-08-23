@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2023 at 08:36 AM
+-- Generation Time: Aug 23, 2023 at 08:30 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -59,10 +59,12 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `restaurant_id`, `dish_name`, `price`, `average_rating`, `ratings_count`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Beef Burger', 200.00, 3.67, 2, '2023-08-15 06:54:16', '2023-08-15 06:54:58'),
-(2, 3, 'Chicken Fry', 150.00, 4.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43'),
-(3, 3, 'Chicken Burger', 180.00, 3.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43'),
-(4, 3, 'Pizza', 500.00, 4.00, 1, '2023-08-15 10:47:09', '2023-08-15 10:49:43');
+(1, 3, 'Beef Burger', 200.00, 2.13, 11, '2023-08-15 06:54:16', '2023-08-22 13:46:51'),
+(2, 3, 'Chicken Fry', 150.00, 0.57, 7, '2023-08-15 10:47:09', '2023-08-22 13:44:02'),
+(3, 3, 'Chicken Burger', 180.00, 0.43, 7, '2023-08-15 10:47:09', '2023-08-22 13:44:02'),
+(4, 3, 'Pizza', 500.00, 3.50, 1, '2023-08-15 10:47:09', '2023-08-22 13:47:02'),
+(5, 9, 'Beef Burger', 250.00, 0.00, 0, '2023-08-22 23:49:39', '2023-08-22 23:49:39'),
+(6, 9, 'Chicken Burger', 200.00, 0.00, 0, '2023-08-22 23:50:06', '2023-08-22 23:50:06');
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2023_08_15_125254_create_menu_table', 10),
 (17, '2023_08_15_131454_create_restaurant_ratings_table', 11),
 (18, '2023_08_15_193906_create_reviews_table', 12),
-(19, '2023_08_15_202944_create_reviews_table', 13);
+(19, '2023_08_15_202944_create_reviews_table', 13),
+(20, '2023_08_18_085711_create_reviews_table', 14),
+(21, '2023_08_18_101056_create_reviews_table', 15),
+(22, '2023_08_18_210632_create_reviews_table', 16),
+(23, '2023_08_20_124040_create_reviews_table', 17);
 
 -- --------------------------------------------------------
 
@@ -123,8 +129,7 @@ CREATE TABLE `offers` (
 INSERT INTO `offers` (`id`, `restaurant_id`, `description`, `discount_percentage`, `created_at`, `updated_at`) VALUES
 (7, 3, 'Eid Offer', 50, '2023-08-01 02:40:10', '2023-08-09 09:59:36'),
 (8, 3, 'Weekend Offer', 20, '2023-08-08 07:28:03', '2023-08-08 07:28:03'),
-(9, 3, 'meow', 15, '2023-08-08 13:48:10', '2023-08-09 00:49:40'),
-(10, 8, 'Eid Offer', 20, '2023-08-08 23:32:57', '2023-08-08 23:34:45');
+(9, 3, 'meow', 15, '2023-08-08 13:48:10', '2023-08-09 00:49:40');
 
 -- --------------------------------------------------------
 
@@ -179,7 +184,7 @@ INSERT INTO `restaurants` (`id`, `name`, `location`, `created_at`, `updated_at`)
 (3, 'Chillox', 'Dhanmondi', '2023-07-31 15:50:51', '2023-07-31 15:50:51'),
 (5, 'Chillox', 'Uttara', '2023-07-31 15:58:05', '2023-07-31 15:58:05'),
 (7, 'BFC', 'Green Road', '2023-07-31 23:43:45', '2023-07-31 23:43:45'),
-(8, 'Takeout', 'Dhanmondi', '2023-08-08 23:26:45', '2023-08-08 23:26:45');
+(9, 'Takeout', 'Dhanmondi', '2023-08-22 23:49:39', '2023-08-22 23:49:39');
 
 -- --------------------------------------------------------
 
@@ -205,7 +210,8 @@ CREATE TABLE `restaurant_ratings` (
 --
 
 INSERT INTO `restaurant_ratings` (`id`, `restaurant_id`, `ambience`, `service`, `pricing`, `ambience_count`, `service_count`, `pricing_count`, `created_at`, `updated_at`) VALUES
-(7, 3, 4.00, 3.67, 5.00, 3, 3, 3, '2023-08-15 08:23:59', '2023-08-15 08:24:32');
+(7, 3, 3.67, 3.33, 4.25, 6, 6, 6, '2023-08-15 08:23:59', '2023-08-22 13:25:36'),
+(9, 7, 4.25, 3.75, 4.00, 2, 2, 2, '2023-08-22 13:23:26', '2023-08-22 13:23:48');
 
 -- --------------------------------------------------------
 
@@ -219,6 +225,11 @@ CREATE TABLE `reviews` (
   `restaurant_id` bigint(20) UNSIGNED NOT NULL,
   `review_text` text NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
+  `upvotes` int(11) NOT NULL DEFAULT 0,
+  `downvotes` int(11) NOT NULL DEFAULT 0,
+  `votes` int(11) NOT NULL DEFAULT 0,
+  `upvoted_by` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`upvoted_by`)),
+  `downvoted_by` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`downvoted_by`)),
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -227,10 +238,10 @@ CREATE TABLE `reviews` (
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `user_id`, `restaurant_id`, `review_text`, `photo`, `created_at`, `updated_at`) VALUES
-(1, 3, 3, 'Used to like them but the burgers are too \"saucy\"', 'photos/Q1b7bo43fk92DwnjMKfyDlGITS13HVFE1UgvYoWc.jpg', NULL, '2023-08-16 00:31:35'),
-(2, 5, 3, 'Used to be a great place :D', NULL, NULL, NULL),
-(8, 4, 3, 'gn', NULL, '2023-08-15 16:18:43', '2023-08-15 17:11:55');
+INSERT INTO `reviews` (`id`, `user_id`, `restaurant_id`, `review_text`, `photo`, `upvotes`, `downvotes`, `votes`, `upvoted_by`, `downvoted_by`, `created_at`, `updated_at`) VALUES
+(2, 6, 3, 'Eto ou bhalo lagenai', NULL, 1, 2, -1, '[7]', '[6,3]', '2023-08-20 06:42:09', '2023-08-20 06:42:09'),
+(5, 3, 7, 'sdadas', NULL, 0, 1, -1, '[]', '[3]', '2023-08-22 14:25:02', '2023-08-22 16:00:40'),
+(6, 3, 3, 'adad', NULL, 0, 0, 0, NULL, NULL, '2023-08-22 15:59:11', '2023-08-22 16:00:16');
 
 -- --------------------------------------------------------
 
@@ -255,7 +266,9 @@ CREATE TABLE `signup` (
 INSERT INTO `signup` (`id`, `admin`, `name`, `email`, `password`, `created_at`, `updated_at`) VALUES
 (3, 1, 'Abid', 'abid@gmail.com', '$2y$10$iwHNEufgtCdsESrj2U3Kx.lBGUK57/SE.y3wmfA8VKC/w.3awsabK', '2023-07-31 13:53:32', '2023-07-31 13:53:32'),
 (4, 1, 'Farhan', 'farhan@gmail.com', '$2y$10$fDFaeWGXB9SwIr3cNb/sjOB1ZwQ8ZFXIhMOFBqTgVbvQz7NJfD1/q', '2023-07-31 13:54:22', '2023-07-31 13:54:22'),
-(5, 0, 'edgarB0i', 'edgarB0i22@gmail.com', '$2y$10$ri5vFGFxMJAJvUOvAcRfxOEq1wzCdGRokM41s/K80MvGPp4gtNUmq', '2023-07-31 13:54:36', '2023-07-31 13:54:36');
+(5, 0, 'edgarB0i', 'edgarB0i22@gmail.com', '$2y$10$ri5vFGFxMJAJvUOvAcRfxOEq1wzCdGRokM41s/K80MvGPp4gtNUmq', '2023-07-31 13:54:36', '2023-07-31 13:54:36'),
+(6, 0, 'Ronak', 'ronak@gmail.com', '$2y$10$ch6vGPeV./zU4cyYAFXgi.mcQ5alavJ8VFsuoCS71CG7I8QT6vNHa', '2023-08-19 07:04:19', '2023-08-19 07:04:19'),
+(8, 0, 'faiyaz', 'faiyaz@gmail.com', '$2y$10$LxQRqS9zt2DXeXM1jgWr4uUjLHWjPla/6IGThffEDu6/34NowohsG', '2023-08-22 18:08:20', '2023-08-22 18:08:20');
 
 -- --------------------------------------------------------
 
@@ -369,13 +382,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `offers`
@@ -393,25 +406,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `restaurant_ratings`
 --
 ALTER TABLE `restaurant_ratings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `signup`
 --
 ALTER TABLE `signup`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
